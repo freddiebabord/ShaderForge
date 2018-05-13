@@ -29,22 +29,24 @@ namespace ShaderForge {
 		glcore 		= 2,	// - OpenGL Core
 		gles 		= 3,	// - OpenGL ES 2.0
 		gles3		= 4,	// - OpenGL ES 3.0
-		metal		= 5,	// - iOS Metal
-		d3d11_9x 	= 6,	// - Direct3D 11 windows RT
-		xboxone 	= 7,	// - Xbox One
-		ps4 		= 8,	// - PlayStation 4
+		vulkan		= 5		// - Vulkan
+		metal		= 6,	// - iOS Metal
+		d3d11_9x 	= 7,	// - Direct3D 11 windows RT
+		xboxone 	= 8,	// - Xbox One
+		ps4 		= 9,	// - PlayStation 4
 		psp2 		= 10	// - PlayStation Vita
 		n3ds 		= 11	// - Nintendo 3DS
 		wiiu		= 12,	// - Nintendo Wii U
 		*/
 
 		public override SFPS_Category PostInitialize (){
-			usedRenderers = new bool[12]{ // TODO: Load from project settings
-				true,	// - Direct3D 9
-				true,	// - Direct3D 11
-				true,	// - OpenGL Core
-				true,	// - OpenGL ES 2.0
+			usedRenderers = new bool[13]{ // TODO: Load from project settings
+				false,	// - Direct3D 9
+				false,	// - Direct3D 11
+				false,	// - OpenGL Core
+				false,	// - OpenGL ES 2.0
 				false,  // - OpenGL ES 3.0
+				false,	// - Vulkan
 				false,	// - iOS Metal
 				false,	// - Direct3D 11 windows RT
 				false,	// - Xbox One
@@ -256,7 +258,7 @@ namespace ShaderForge {
 			
 			
 			
-			EditorGUI.LabelField( r, "Target renderers:" );
+			EditorGUI.LabelField( r, "Exclude Renderers:" );
 			r.xMin += 20;
 			r.y += 20;
 			r.height = 17;
@@ -278,7 +280,7 @@ namespace ShaderForge {
 				
 				if( shouldDisable ) {
 					GUI.enabled = false;
-					EditorGUI.Toggle( r, false );
+					EditorGUI.Toggle( r, true );
 				} else {
 					usedRenderers[i] = UndoableToggle( r, usedRenderers[i], SF_Tools.rendererLabels[i] + " renderer");
 					//usedRenderers[i] = EditorGUI.Toggle( r, usedRenderers[i] );

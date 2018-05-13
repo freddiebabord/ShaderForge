@@ -25,7 +25,7 @@ Shader "Shader Forge/Examples/Pixel Rotator" {
             #include "AutoLight.cginc"
             #pragma multi_compile_fwdbase_fullshadows
             #pragma multi_compile_fog
-            #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal d3d11_9x xboxone ps4 psp2 n3ds wiiu 
+            #pragma exclude_renderers d3d9 d3d11 glcore gles gles3 metal d3d11_9x xboxone ps4 psp2 n3ds wiiu 
             #pragma target 3.0
             uniform float4 _LightColor0;
             struct VertexInput {
@@ -58,7 +58,7 @@ Shader "Shader Forge/Examples/Pixel Rotator" {
                 float3 lightDirection = normalize(_WorldSpaceLightPos0.xyz);
                 float3 lightColor = _LightColor0.rgb;
 ////// Lighting:
-                float attenuation = LIGHT_ATTENUATION(i);
+                float attenuation = unity_4LightAtten0;
                 float3 attenColor = attenuation * _LightColor0.xyz;
 /////// Diffuse:
                 float NdotL = max(0.0,dot( normalDirection, lightDirection ));
@@ -79,8 +79,8 @@ Shader "Shader Forge/Examples/Pixel Rotator" {
                 float2 node_741_skew = node_744 + 0.2127+node_744.x*0.3713*node_744.y;
                 float2 node_741_rnd = 4.789*sin(489.123*(node_741_skew));
                 float node_741 = frac(node_741_rnd.x*node_741_rnd.y*(1+node_741_skew.x));
-                float4 node_1817 = _Time;
-                float node_563_ang = node_1817.g;
+                float4 node_8740 = _Time;
+                float node_563_ang = node_8740.g;
                 float node_563_spd = 1.0;
                 float node_563_cos = cos(node_563_spd*node_563_ang);
                 float node_563_sin = sin(node_563_spd*node_563_ang);
@@ -113,7 +113,7 @@ Shader "Shader Forge/Examples/Pixel Rotator" {
             #include "AutoLight.cginc"
             #pragma multi_compile_fwdadd_fullshadows
             #pragma multi_compile_fog
-            #pragma only_renderers d3d9 d3d11 glcore gles gles3 metal d3d11_9x xboxone ps4 psp2 n3ds wiiu 
+            #pragma exclude_renderers d3d9 d3d11 glcore gles gles3 metal d3d11_9x xboxone ps4 psp2 n3ds wiiu 
             #pragma target 3.0
             uniform float4 _LightColor0;
             struct VertexInput {
@@ -146,7 +146,7 @@ Shader "Shader Forge/Examples/Pixel Rotator" {
                 float3 lightDirection = normalize(lerp(_WorldSpaceLightPos0.xyz, _WorldSpaceLightPos0.xyz - i.posWorld.xyz,_WorldSpaceLightPos0.w));
                 float3 lightColor = _LightColor0.rgb;
 ////// Lighting:
-                float attenuation = LIGHT_ATTENUATION(i);
+                float attenuation = unity_4LightAtten0;
                 float3 attenColor = attenuation * _LightColor0.xyz;
 /////// Diffuse:
                 float NdotL = max(0.0,dot( normalDirection, lightDirection ));
@@ -165,8 +165,8 @@ Shader "Shader Forge/Examples/Pixel Rotator" {
                 float2 node_741_skew = node_744 + 0.2127+node_744.x*0.3713*node_744.y;
                 float2 node_741_rnd = 4.789*sin(489.123*(node_741_skew));
                 float node_741 = frac(node_741_rnd.x*node_741_rnd.y*(1+node_741_skew.x));
-                float4 node_1127 = _Time;
-                float node_563_ang = node_1127.g;
+                float4 node_2656 = _Time;
+                float node_563_ang = node_2656.g;
                 float node_563_spd = 1.0;
                 float node_563_cos = cos(node_563_spd*node_563_ang);
                 float node_563_sin = sin(node_563_spd*node_563_ang);

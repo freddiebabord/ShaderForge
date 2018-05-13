@@ -108,7 +108,7 @@ namespace ShaderForge {
 
 
 
-
+			platform = GetPrimaryPlatform();
 
 			//if(Compiled()){
 				Color c = GUI.color;
@@ -298,29 +298,36 @@ namespace ShaderForge {
 			// 28 = BuildTarget.BB10		// Unity 4.x
 			// 28 = BuildTarget.BlackBerry	// Unity 5.x
 
-			bool mobile = ( active == BuildTarget.Android || (int)active == 9 || (int)active == 28 );
-			if(mobile && editor.ps.catMeta.usedRenderers[(int)RenderPlatform.gles])
+			bool nonIOSmobile = ( active == BuildTarget.Android || (int)active == 28 );
+			if(nonIOSmobile && !editor.ps.catMeta.usedRenderers[(int)RenderPlatform.gles])
 				return RenderPlatform.gles;
 
+			if ((int)active == 9)
+			{
+				return !editor.ps.catMeta.usedRenderers[(int) RenderPlatform.metal] ? RenderPlatform.metal : RenderPlatform.gles;
+			}
+			
 			// Standalone / Webplayer. In this case, it depends on what the user is using
 			// Pick the one that is currently running
-			if( Application.platform == RuntimePlatform.OSXEditor && editor.ps.catMeta.usedRenderers[(int)RenderPlatform.glcore] )
+			if( Application.platform == RuntimePlatform.OSXEditor && !editor.ps.catMeta.usedRenderers[(int)RenderPlatform.metal] )
+				return RenderPlatform.metal;
+			if( Application.platform == RuntimePlatform.OSXEditor && !editor.ps.catMeta.usedRenderers[(int)RenderPlatform.glcore] )
 				return RenderPlatform.glcore;
-			if( Application.platform == RuntimePlatform.WindowsEditor && editor.ps.catMeta.usedRenderers[(int)RenderPlatform.d3d9] )
+			if( Application.platform == RuntimePlatform.WindowsEditor && !editor.ps.catMeta.usedRenderers[(int)RenderPlatform.d3d9] )
 				return RenderPlatform.d3d9;
-			if( Application.platform == RuntimePlatform.WindowsEditor && editor.ps.catMeta.usedRenderers[(int)RenderPlatform.d3d11] )
+			if( Application.platform == RuntimePlatform.WindowsEditor && !editor.ps.catMeta.usedRenderers[(int)RenderPlatform.d3d11] )
 				return RenderPlatform.d3d11;
 
 
 			Debug.LogWarning( "[SF] Unhandled platform settings. Make sure your build target (" + active + ") is sensible, and that you've got platforms enabled to compile for" );
 			// You're using some weird setup, pick first active one
-			for(int i=0;i<12;i++){
-				if(editor.ps.catMeta.usedRenderers[i])
+			for(int i=0;i<editor.ps.catMeta.usedRenderers.Length;i++){
+				if(!editor.ps.catMeta.usedRenderers[i])
 					return (RenderPlatform)i;
 			}
 
-			Debug.LogError("No renderers compilable, defaulting to d3d9");
-			return RenderPlatform.d3d9;
+			Debug.LogError("No renderers compilable, defaulting to OpenGL");
+			return RenderPlatform.glcore;
 		}
 
 

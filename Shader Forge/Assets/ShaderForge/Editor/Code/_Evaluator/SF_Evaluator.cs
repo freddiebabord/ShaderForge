@@ -661,8 +661,8 @@ namespace ShaderForge {
 
 
 
-			if( dependencies.DoesIncludePlatforms() )
-				App( "#pragma only_renderers " + dependencies.GetIncludedPlatforms() );
+			if( dependencies.DoesExcludePlatforms() )
+				App( "#pragma exclude_renderers " + dependencies.GetExcludedPlatforms() );
 			if( dependencies.IsTargetingAboveDefault() ) {
 				if( ps.catExperimental.force2point0 )
 					App( "#pragma target 2.0" );
@@ -959,7 +959,7 @@ namespace ShaderForge {
 			if( SF_Evaluator.inVert && ps.catLighting.IsVertexLit() && ShouldUseLightMacros() )
 				App( "TRANSFER_VERTEX_TO_FRAGMENT(o)" );
 
-			string atten = "LIGHT_ATTENUATION(" + ( ( currentProgram == ShaderProgram.Frag ) ? "i" : "o" ) + ")";
+			string atten = "unity_4LightAtten0";// "LIGHT_ATTENUATION(" + ( ( currentProgram == ShaderProgram.Frag ) ? "i" : "o" ) + ")";
 
 			string inner = ( ShouldUseLightMacros() ? atten : "1" );
 			App( "float attenuation = " + inner + ";" );
@@ -2680,7 +2680,7 @@ namespace ShaderForge {
 			if( specAmb ) {
 				if( ps.mOut.ambientSpecular.IsConnectedEnabledAndAvailable() ) {
 					App( "outEmission.rgb += indirectSpecular;" );
-				} else {
+				} else if(shaderString.Contains("float3 indirectSpecular")) {
 					App( "outEmission.rgb += indirectSpecular * "+ps.n_specularOcclusion+";" );
 				}
 			}

@@ -267,7 +267,7 @@ namespace ShaderForge {
 			}
 		}
 
-		public bool DoesIncludePlatforms() {
+		public bool DoesExcludePlatforms() {
 			return includeRenderers.Count > 0;
 		}
 
@@ -275,7 +275,7 @@ namespace ShaderForge {
 			return ( shaderTarget > 2 );
 		}
 
-		public string GetIncludedPlatforms() {
+		public string GetExcludedPlatforms() {
 			string s = "";
 			foreach( RenderPlatform plat in includeRenderers )
 				s += plat.ToString() + " ";

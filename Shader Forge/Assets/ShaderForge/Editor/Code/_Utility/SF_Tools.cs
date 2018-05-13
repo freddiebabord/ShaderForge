@@ -14,13 +14,15 @@ namespace ShaderForge {
 		glcore 		= 2,	// - OpenGL Core
 		gles 		= 3,	// - OpenGL ES 2.0
 		gles3		= 4,	// - OpenGL ES 3.0
-		metal		= 5,	// - iOS Metal
-		d3d11_9x 	= 6,	// - Direct3D 11 windows RT
-		xboxone 	= 7,	// - Xbox One
-		ps4 		= 8,	// - PlayStation 4
-		psp2 		= 9,	// - PlayStation Vita
-		n3ds		= 10,	// - Nintendo 3DS
-		wiiu		= 11	// - Nintendo Wii U
+		vulkan		= 5,	// - Vulkan
+		metal		= 6,	// - Metal
+		d3d11_9x 	= 7,	// - Direct3D 11 windows RT
+		xboxone 	= 8,	// - Xbox One
+		ps4 		= 9,	// - PlayStation 4
+		psp2 		= 10,	// - PlayStation Vita
+		n3ds		= 11,	// - Nintendo 3DS
+		wiiu		= 12,	// - Nintendo Wii U
+		
 	};
 	
 	
@@ -45,13 +47,15 @@ namespace ShaderForge {
 			"OpenGL Core",
 			"OpenGL ES 2.0",
 			"OpenGL ES 3.0",
-			"iOS Metal",
+			"Vulkan",
+			"Metal",
 			"Direct3D 11 for Windows RT/Phone",
 			"Xbox One",
 			"PlayStation 4",
 			"PlayStation Vita",
 			"Nintendo 3DS",
-			"Nintendo Wii U"
+			"Nintendo Wii U",
+			
 		};
 
 		public const string alphabetLower = "abcdefghijklmnopqrstuvwxyz";

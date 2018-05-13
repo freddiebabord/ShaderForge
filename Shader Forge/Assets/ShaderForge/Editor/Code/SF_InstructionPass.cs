@@ -29,6 +29,7 @@ namespace ShaderForge{
 			new SFIns_PassPlat(RenderPlatform.glcore),
 			new SFIns_PassPlat(RenderPlatform.gles),
 			new SFIns_PassPlat(RenderPlatform.gles3),
+			new SFIns_PassPlat(RenderPlatform.vulkan),
 			new SFIns_PassPlat(RenderPlatform.metal),
 			new SFIns_PassPlat(RenderPlatform.d3d11_9x),
 			new SFIns_PassPlat(RenderPlatform.xboxone),

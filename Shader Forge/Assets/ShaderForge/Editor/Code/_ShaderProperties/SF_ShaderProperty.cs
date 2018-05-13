@@ -10,7 +10,7 @@ namespace ShaderForge {
 	public class SF_ShaderProperty : ScriptableObject {
 
 		public bool tagHideInInspector = false;
-		public bool tagHDR = false;
+		public bool tagHDR = true;
 		public bool tagPerRendererData = false;
 		public bool tagNoScaleOffset = false;
 		public bool tagNormal = false;

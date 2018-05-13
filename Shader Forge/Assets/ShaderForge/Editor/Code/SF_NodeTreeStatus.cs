@@ -274,9 +274,10 @@ namespace ShaderForge {
 			*/
 			bool osx = Application.platform == RuntimePlatform.OSXEditor;
 			bool windows = !osx;
-			bool ogl = editor.ps.catMeta.usedRenderers[2];
-			bool dx9 = editor.ps.catMeta.usedRenderers[0];
-			bool dx11 = editor.ps.catMeta.usedRenderers[1];
+			bool ogl = !editor.ps.catMeta.usedRenderers[2];
+			bool metal = !editor.ps.catMeta.usedRenderers[6];
+			bool dx9 = !editor.ps.catMeta.usedRenderers[0];
+			bool dx11 = !editor.ps.catMeta.usedRenderers[1];
 
 #if UNITY_5_0
 			bool inDx11Mode = UnityEditor.PlayerSettings.useDirect3D11;
@@ -284,11 +285,12 @@ namespace ShaderForge {
 			bool inDx11Mode = true;
 #endif
 
-			if( osx && !ogl ) {
-				SF_ErrorEntry error = SF_ErrorEntry.Create( "Your shader will not render properly on your workstation - you need to have OpenGL enabled when working in OSX. Click the icon to enable OpenGL!", true );
+			if( osx && (!metal || !ogl) ) {
+				SF_ErrorEntry error = SF_ErrorEntry.Create( "Your shader will not render properly on your workstation - you need to have OpenGL / Metal enabled when working in OSX. Click the icon to enable OpenGL & Metal!", true );
 				error.action = () => {
-					UnityEditor.Undo.RecordObject( editor.ps.catMeta, "error correction - enable OpenGL" );
-					editor.ps.catMeta.usedRenderers[2] = true;
+					UnityEditor.Undo.RecordObject( editor.ps.catMeta, "error correction - enable OpenGL & Metal" );
+					editor.ps.catMeta.usedRenderers[2] = false;
+					editor.ps.catMeta.usedRenderers[6] = false;
 					editor.OnShaderModified( NodeUpdateType.Hard );
 				};
 				Errors.Add( error );
