@@ -13,7 +13,8 @@ While this version of ShaderForge *should* work in Unity versions below 2018, I 
 + Metal preview by default on MacOS
 + Changes include render platforms to exclude render patforms
   + Will now compile for all platforms by default
-+ Lighting fix from LIGHT_ATTENUATION(i) to unity_4LightAtten0
++ Lighting changed from LIGHT_ATTENUATION(i) to unity_4LightAtten0
+  + Should now align with the light pos using _WorldSpaceLightPos0 or unity_4LightPosX0, unity_4LightPosY0, unity_4LightPosZ0 
 + Displays the correct render target under the preview window
 + Beta versioning number
 + HDR Color
